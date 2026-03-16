@@ -13,81 +13,47 @@
             --border: #333;
         }
 
-        body {
-            background-color: var(--main-bg);
-            color: var(--text);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-        }
+        body { background-color: var(--main-bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; }
 
-        nav {
-            background: #1a1a1a;
-            border-bottom: 3px solid var(--accent);
-            padding: 0;
-            position: sticky; top: 0; z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-text {
-            font-weight: bold; font-size: 20px; padding: 15px 20px;
-            background: var(--accent); color: #000;
-            text-decoration: none; letter-spacing: 1px;
-        }
-
-        .menu { display: flex; }
-        .menu a {
-            color: #bbb; text-decoration: none; padding: 18px 20px;
-            text-transform: uppercase; font-size: 14px; font-weight: bold;
-        }
+        /* Навигация */
+        nav { background: #1a1a1a; border-bottom: 3px solid var(--accent); position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; }
+        .logo-text { font-weight: bold; font-size: 20px; padding: 15px 20px; background: var(--accent); color: #000; text-decoration: none; }
+        .menu a { color: #bbb; text-decoration: none; padding: 18px 20px; text-transform: uppercase; font-size: 14px; font-weight: bold; display: inline-block; }
         .menu a:hover { background: #252525; color: #fff; }
 
-        .container {
-            max-width: 1100px; margin: 20px auto;
-            display: grid; grid-template-columns: 1fr 300px;
-            gap: 20px; padding: 0 10px;
-        }
-
+        .container { max-width: 1100px; margin: 20px auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; padding: 0 10px; }
         .section { display: none; animation: fadeIn 0.3s; }
         .active { display: block; }
 
-        .card {
-            background: var(--panel-bg);
-            border: 1px solid var(--border);
-            margin-bottom: 10px; padding: 15px;
-        }
+        .card { background: var(--panel-bg); border: 1px solid var(--border); margin-bottom: 10px; padding: 15px; }
+        .card h2 { margin-top: 0; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; font-size: 18px; }
 
-        .card h2 {
-            margin-top: 0; color: var(--accent);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px; text-transform: uppercase; font-size: 18px;
-        }
+        /* Таблица */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 12px; }
+        td { padding: 12px 10px; border-bottom: 1px solid var(--border); }
+        .clickable-player { color: #fff; cursor: pointer; font-weight: bold; }
+        .clickable-player:hover { text-decoration: underline; color: var(--accent); }
 
-        /* Таблица игроков */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 13px; }
-        td { padding: 10px; border-bottom: 1px solid var(--border); font-size: 14px; }
+        /* ПРОФИЛЬ ИГРОКА */
+        .player-profile { display: none; background: var(--panel-bg); border: 1px solid var(--border); padding: 0; animation: fadeIn 0.4s; }
+        .profile-header { display: flex; background: #1a1a1a; padding: 20px; border-bottom: 2px solid var(--accent); }
+        .player-photo { width: 180px; height: 180px; background: #252525; border: 2px solid var(--border); object-fit: cover; }
+        .player-main-info { margin-left: 25px; flex-grow: 1; }
+        .player-main-info h1 { margin: 0; font-size: 32px; color: #fff; }
+        .flag { width: 25px; vertical-align: middle; margin-right: 10px; }
         
-        .clickable-player { color: #fff; cursor: pointer; font-weight: bold; text-decoration: underline; }
-        .clickable-player:hover { color: var(--accent); }
+        .profile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+        .info-box { background: #252525; padding: 12px; border-radius: 4px; border-left: 3px solid var(--accent); }
+        .info-label { display: block; color: #777; font-size: 11px; text-transform: uppercase; margin-bottom: 4px; }
+        .info-value { font-weight: bold; font-size: 16px; }
 
-        /* Профиль игрока */
-        .player-profile { display: none; background: var(--panel-bg); border: 1px solid var(--accent); padding: 20px; position: relative; }
-        .back-btn { background: var(--accent); border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
-        .profile-info h1 { margin: 5px 0; color: var(--accent); }
-        .profile-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .detail-item { background: #252525; padding: 10px; border-radius: 4px; }
-        .detail-label { color: #888; font-size: 12px; display: block; }
+        .back-btn { background: #333; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 10px; font-size: 12px; }
+        .back-btn:hover { background: #444; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
         .sidebar { background: var(--panel-bg); padding: 15px; border: 1px solid var(--border); height: fit-content; }
-        .match-mini { font-size: 13px; padding: 5px 0; border-bottom: 1px solid #333; display: flex; justify-content: space-between; }
     </style>
 </head>
 <body>
@@ -97,7 +63,6 @@
         <a href="#" class="logo-text" onclick="showSection('home')">ECHOLTV</a>
         <div class="menu">
             <a href="#" onclick="showSection('news')">Новости</a>
-            <a href="#" onclick="showSection('matches')">Матчи</a>
             <a href="#" onclick="showSection('players')">Игроки</a>
             <a href="#" onclick="showSection('teams')">Команды</a>
         </div>
@@ -110,25 +75,22 @@
         <div id="home" class="section active">
             <div class="card">
                 <h2>Главные новости</h2>
-                <p>Добро пожаловать на ECHOLTV — Tier-6 портал.</p>
+                <p>Добро пожаловать на ECHOLTV — Tier-6 портал статистики.</p>
             </div>
         </div>
 
         <div id="players" class="section">
             <div id="players-list-view">
                 <div class="card">
-                    <h2>База игроков Tier-6</h2>
+                    <h2>База игроков</h2>
                     <table>
                         <thead>
-                            <tr>
-                                <th>Никнейм</th>
-                                <th>Рейтинг 2.0</th>
-                            </tr>
+                            <tr><th>Никнейм</th><th>Рейтинг 2.0</th></tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="clickable-player" onclick="showPlayerProfile('spokyso')">spokyso</td>
-                                <td style="color: #888;">None</td>
+                                <td class="clickable-player" onclick="showPlayerProfile()">spokyso</td>
+                                <td style="color: #666;">None</td>
                             </tr>
                         </tbody>
                     </table>
@@ -136,48 +98,48 @@
             </div>
 
             <div id="player-profile-view" class="player-profile">
-                <button class="back-btn" onclick="hidePlayerProfile()">← Назад к списку</button>
-                <div class="profile-info">
-                    <span style="color: var(--accent);">ПРОФИЛЬ ИГРОКА</span>
-                    <h1 id="prof-nick">spokyso / Юра</h1>
-                    <div class="profile-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Возраст</span>
-                            <span id="prof-age">18 лет</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Роль</span>
-                            <span id="prof-role">рифлер</span>
+                <button class="back-btn" onclick="hidePlayerProfile()">← НАЗАД К СПИСКУ</button>
+                <div class="profile-header">
+                    <img src="8f8ad45c-d658-47e3-b3b3-545cc8983645.jpg" class="player-photo" alt="spokyso">
+                    <div class="player-main-info">
+                        <h1>spokyso</h1>
+                        <p><img src="https://flagcdn.com/w40/ua.png" class="flag"> Юра</p>
+                        <div style="margin-top: 15px;">
+                            <span style="background: var(--accent); color: #000; padding: 4px 8px; font-weight: bold; border-radius: 2px;">PRO</span>
                         </div>
                     </div>
+                </div>
+                <div class="profile-grid">
+                    <div class="info-box"><span class="info-label">Возраст</span><span class="info-value">18 лет</span></div>
+                    <div class="info-box"><span class="info-label">Команда</span><span class="info-value">Echofall</span></div>
+                    <div class="info-box"><span class="info-label">Позиция</span><span class="info-value">Rifler / IGL</span></div>
+                    <div class="info-box"><span class="info-label">Страна</span><span class="info-value">Украина</span></div>
+                    <div class="info-box"><span class="info-label">Статус</span><span class="info-value">Active</span></div>
+                    <div class="info-box"><span class="info-label">Рейтинг ECHOLTV</span><span class="info-value">None</span></div>
                 </div>
             </div>
         </div>
 
-        <div id="news" class="section"><div class="card"><h2>Новости</h2><p>Лента обновляется...</p></div></div>
-        <div id="matches" class="section"><div class="card"><h2>Матчи</h2><p>Нет активных игр.</p></div></div>
-        <div id="teams" class="section"><div class="card"><h2>Команды</h2><p>Echofall</p></div></div>
-
+        <div id="news" class="section"><div class="card"><h2>Новости</h2><p>Обновлений пока нет.</p></div></div>
+        <div id="teams" class="section"><div class="card"><h2>Команды</h2><p>1. Echofall</p></div></div>
     </div>
 
     <div class="sidebar">
         <h3>Матчи LIVE</h3>
-        <div class="match-mini">Нет событий</div>
+        <p style="font-size: 12px; color: #666;">Нет активных событий</p>
     </div>
 </div>
 
 <script>
     function showSection(id) {
-        const sections = document.querySelectorAll('.section');
-        sections.forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        hidePlayerProfile(); // Сброс профиля при переходе
+        hidePlayerProfile();
     }
 
-    function showPlayerProfile(nickname) {
+    function showPlayerProfile() {
         document.getElementById('players-list-view').style.display = 'none';
         document.getElementById('player-profile-view').style.display = 'block';
-        // Здесь можно добавить логику смены данных, если игроков будет много
     }
 
     function hidePlayerProfile() {
