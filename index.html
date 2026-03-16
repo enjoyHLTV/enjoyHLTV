@@ -30,6 +30,15 @@
 
         .card { background: var(--panel-bg); border: 1px solid var(--border); margin-bottom: 10px; padding: 15px; }
         .card h2 { margin-top: 0; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; font-size: 18px; }
+        
+        .hero-banner { background: linear-gradient(45deg, #1a1a1a, #252525); padding: 40px; border: 1px solid var(--border); margin-bottom: 20px; text-align: center; }
+        .hero-banner h1 { font-size: 32px; color: var(--accent); margin-bottom: 10px; }
+        .hero-banner p { font-size: 18px; color: #aaa; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        .stat-item { background: #252525; padding: 15px; border-radius: 4px; text-align: center; border: 1px solid var(--border); }
+        .stat-value { display: block; font-size: 24px; font-weight: bold; color: #fff; }
+        .stat-label { color: #777; font-size: 12px; text-transform: uppercase; }
 
         table { width: 100%; border-collapse: collapse; }
         th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 12px; }
@@ -48,16 +57,10 @@
         .social-icon { background: #333; color: var(--accent); padding: 6px 12px; border-radius: 3px; font-size: 11px; text-decoration: none; font-weight: bold; border: 1px solid #444; transition: 0.2s; }
         .social-icon:hover { background: var(--accent); color: #000; transform: translateY(-2px); }
 
-        .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 20px; }
-        .info-box { background: #252525; padding: 12px; border-radius: 4px; border-left: 3px solid var(--accent); }
-        .info-label { display: block; color: #777; font-size: 11px; text-transform: uppercase; margin-bottom: 4px; }
-        .info-value { font-weight: bold; font-size: 15px; }
-        .elo-red-value { color: var(--elo-red); font-size: 20px; }
-
-        .achievements-list { list-style: none; padding: 0; margin: 0; }
-        .achievement-item { display: flex; justify-content: space-between; padding: 8px 10px; background: #252525; margin-bottom: 5px; border-radius: 3px; font-size: 14px; }
-        .place-1 { color: var(--gold); font-weight: bold; }
-        .place-2 { color: var(--silver); font-weight: bold; }
+        .news-item { padding: 15px 0; border-bottom: 1px solid var(--border); }
+        .news-date { color: var(--accent); font-size: 12px; font-weight: bold; }
+        .news-title { font-size: 18px; margin: 5px 0; color: #fff; }
+        .news-text { color: #aaa; font-size: 14px; }
 
         .back-btn { background: #333; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 10px; font-size: 12px; }
         .role-badge { background: #444; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px; vertical-align: middle; }
@@ -84,9 +87,40 @@
     <div class="content-main">
         
         <div id="home" class="section active">
+            <div class="hero-banner">
+                <h1>ECHOLTV</h1>
+                <p>Твой Tier-6 хаб статистики и достижений</p>
+                <div class="stats-grid">
+                    <div class="stat-item clickable" onclick="showSection('players')">
+                        <span class="stat-value">1</span>
+                        <span class="stat-label">Игроков в базе</span>
+                    </div>
+                    <div class="stat-item clickable" onclick="showSection('teams')">
+                        <span class="stat-value">1</span>
+                        <span class="stat-label">Команд</span>
+                    </div>
+                </div>
+            </div>
             <div class="card">
-                <h2>Главные новости</h2>
-                <p>ECHOLTV — Твой Tier-6 хаб статистики и достижений.</p>
+                <h2>О проекте</h2>
+                <p>ECHOLTV — это независимая платформа для отслеживания прогресса игроков и команд на Tier-6 сцене CS2. Мы собираем данные о ELO, ролях и турнирных достижениях в одном месте.</p>
+                <p>Наша цель: создать прозрачную систему рейтинга для начинающих коллективов и помочь талантливым игрокам заявить о себе.</p>
+            </div>
+        </div>
+
+        <div id="news" class="section">
+            <div class="card">
+                <h2>Новости портала</h2>
+                <div class="news-item">
+                    <span class="news-date">16.03.2026</span>
+                    <div class="news-title">Запуск бета-тестирования ECHOLTV</div>
+                    <p class="news-text">Мы официально запустили портал в режиме бета-теста! Сейчас доступен базовый функционал профилей игроков и команд. В ближайшее время планируется расширение базы игроков и добавление системы автоматического обновления ELO.</p>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">15.03.2026</span>
+                    <div class="news-title">Echofall — первая команда в реестре</div>
+                    <p class="news-text">Команда Echofall под руководством spokyso стала первым коллективом, добавленным в нашу базу данных.</p>
+                </div>
             </div>
         </div>
 
@@ -130,16 +164,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="profile-grid">
-                    <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value elo-red-value">2100</span></div>
-                    <div class="info-box"><span class="info-label">Age</span><span class="info-value">18 years old</span></div>
-                    <div class="info-box"><span class="info-label">Role</span><span class="info-value">Rifler / IGL</span></div>
                 </div>
-                <div class="card" style="margin: 0 20px;">
-                    <h3>Achievements</h3>
-                    <div id="achievements-content"></div>
-                </div>
-            </div>
         </div>
 
         <div id="teams" class="section">
@@ -169,24 +194,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" style="margin: 20px;">
-                    <h3>Трофеи команды</h3>
-                    <div id="team-achievements-content"></div>
                 </div>
-                <div class="card" style="margin: 0 20px;">
-                    <h3>Состав команды</h3>
-                    <table>
-                        <thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
-                                <td style="color: var(--elo-red); font-weight: bold;">2100</td>
-                                <td><span class="role-badge">IGL</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
 
     </div>
