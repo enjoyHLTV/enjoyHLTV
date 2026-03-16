@@ -29,20 +29,19 @@
         .card { background: var(--panel-bg); border: 1px solid var(--border); margin-bottom: 10px; padding: 15px; }
         .card h2 { margin-top: 0; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; font-size: 18px; }
 
-        /* Таблица */
+        /* Таблицы и списки */
         table { width: 100%; border-collapse: collapse; }
         th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 12px; }
         td { padding: 12px 10px; border-bottom: 1px solid var(--border); }
-        .clickable-player { color: #fff; cursor: pointer; font-weight: bold; }
-        .clickable-player:hover { text-decoration: underline; color: var(--accent); }
+        .clickable { color: #fff; cursor: pointer; font-weight: bold; }
+        .clickable:hover { text-decoration: underline; color: var(--accent); }
 
-        /* ПРОФИЛЬ ИГРОКА */
-        .player-profile { display: none; background: var(--panel-bg); border: 1px solid var(--border); padding: 0; animation: fadeIn 0.4s; }
+        /* ПРОФИЛИ */
+        .profile-view { display: none; background: var(--panel-bg); border: 1px solid var(--border); animation: fadeIn 0.4s; }
         .profile-header { display: flex; background: #1a1a1a; padding: 20px; border-bottom: 2px solid var(--accent); }
-        .player-photo { width: 180px; height: 180px; background: #252525; border: 2px solid var(--border); object-fit: cover; }
-        .player-main-info { margin-left: 25px; flex-grow: 1; }
-        .player-main-info h1 { margin: 0; font-size: 32px; color: #fff; }
-        .flag { width: 25px; vertical-align: middle; margin-right: 10px; }
+        .profile-img { width: 180px; height: 180px; background: #252525; border: 2px solid var(--border); object-fit: cover; }
+        .profile-main-info { margin-left: 25px; flex-grow: 1; }
+        .profile-main-info h1 { margin: 0; font-size: 32px; color: #fff; }
         
         .profile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
         .info-box { background: #252525; padding: 12px; border-radius: 4px; border-left: 3px solid var(--accent); }
@@ -50,7 +49,6 @@
         .info-value { font-weight: bold; font-size: 16px; }
 
         .back-btn { background: #333; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 10px; font-size: 12px; }
-        .back-btn:hover { background: #444; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .sidebar { background: var(--panel-bg); padding: 15px; border: 1px solid var(--border); height: fit-content; }
@@ -84,29 +82,23 @@
                 <div class="card">
                     <h2>База игроков</h2>
                     <table>
-                        <thead>
-                            <tr><th>Никнейм</th><th>Рейтинг 2.0</th></tr>
-                        </thead>
+                        <thead><tr><th>Никнейм</th><th>Рейтинг 2.0</th></tr></thead>
                         <tbody>
                             <tr>
-                                <td class="clickable-player" onclick="showPlayerProfile()">spokyso</td>
+                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
                                 <td style="color: #666;">None</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
-            <div id="player-profile-view" class="player-profile">
-                <button class="back-btn" onclick="hidePlayerProfile()">← НАЗАД К СПИСКУ</button>
+            <div id="player-profile-view" class="profile-view">
+                <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К СПИСКУ</button>
                 <div class="profile-header">
-                    <img src="8f8ad45c-d658-47e3-b3b3-545cc8983645.jpg" class="player-photo" alt="spokyso">
-                    <div class="player-main-info">
+                    <img src="8f8ad45c-d658-47e3-b3b3-545cc8983645.jpg" class="profile-img" alt="spokyso">
+                    <div class="profile-main-info">
                         <h1>spokyso</h1>
-                        <p><img src="https://flagcdn.com/w40/ua.png" class="flag"> Юра</p>
-                        <div style="margin-top: 15px;">
-                            <span style="background: var(--accent); color: #000; padding: 4px 8px; font-weight: bold; border-radius: 2px;">PRO</span>
-                        </div>
+                        <p><img src="https://flagcdn.com/w40/ua.png" style="width:20px"> Юра</p>
                     </div>
                 </div>
                 <div class="profile-grid">
@@ -114,14 +106,54 @@
                     <div class="info-box"><span class="info-label">Команда</span><span class="info-value">Echofall</span></div>
                     <div class="info-box"><span class="info-label">Позиция</span><span class="info-value">Rifler / IGL</span></div>
                     <div class="info-box"><span class="info-label">Страна</span><span class="info-value">Украина</span></div>
-                    <div class="info-box"><span class="info-label">Статус</span><span class="info-value">Active</span></div>
-                    <div class="info-box"><span class="info-label">Рейтинг ECHOLTV</span><span class="info-value">None</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="teams" class="section">
+            <div id="teams-list-view">
+                <div class="card">
+                    <h2>Мировой рейтинг Tier-6</h2>
+                    <table>
+                        <thead><tr><th>Команда</th><th>AVG ELO</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="clickable" onclick="showTeamProfile()">Echofall</td>
+                                <td style="color: #666;">None</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="team-profile-view" class="profile-view">
+                <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К РЕЙТИНГУ</button>
+                <div class="profile-header">
+                    <img src="8f8ad45c-d658-47e3-b3b3-545cc8983645.jpg" class="profile-img" alt="Echofall">
+                    <div class="profile-main-info">
+                        <h1>Echofall</h1>
+                        <p>Организация: Tier-6 Team</p>
+                    </div>
+                </div>
+                <div class="profile-grid">
+                    <div class="info-box"><span class="info-label">Среднее ELO</span><span class="info-value">None</span></div>
+                    <div class="info-box"><span class="info-label">Страна</span><span class="info-value">Украина</span></div>
+                </div>
+                <div class="card" style="margin: 20px; border-left:none;">
+                    <h3>Состав команды</h3>
+                    <table>
+                        <thead><tr><th>Игрок</th><th>Роль</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
+                                <td>Rifler / IGL</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
         <div id="news" class="section"><div class="card"><h2>Новости</h2><p>Обновлений пока нет.</p></div></div>
-        <div id="teams" class="section"><div class="card"><h2>Команды</h2><p>1. Echofall</p></div></div>
     </div>
 
     <div class="sidebar">
@@ -134,17 +166,33 @@
     function showSection(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        hidePlayerProfile();
+        hideAllProfiles();
     }
 
     function showPlayerProfile() {
-        document.getElementById('players-list-view').style.display = 'none';
+        hideAllViews();
+        document.getElementById('players').classList.add('active');
         document.getElementById('player-profile-view').style.display = 'block';
     }
 
-    function hidePlayerProfile() {
+    function showTeamProfile() {
+        hideAllViews();
+        document.getElementById('teams').classList.add('active');
+        document.getElementById('team-profile-view').style.display = 'block';
+    }
+
+    function hideAllViews() {
+        document.getElementById('players-list-view').style.display = 'none';
+        document.getElementById('player-profile-view').style.display = 'none';
+        document.getElementById('teams-list-view').style.display = 'none';
+        document.getElementById('team-profile-view').style.display = 'none';
+    }
+
+    function hideAllProfiles() {
         document.getElementById('players-list-view').style.display = 'block';
         document.getElementById('player-profile-view').style.display = 'none';
+        document.getElementById('teams-list-view').style.display = 'block';
+        document.getElementById('team-profile-view').style.display = 'none';
     }
 </script>
 
