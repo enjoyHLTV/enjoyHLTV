@@ -24,9 +24,7 @@
             background: #1a1a1a;
             border-bottom: 3px solid var(--accent);
             padding: 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: sticky; top: 0; z-index: 100;
         }
 
         .nav-container {
@@ -37,39 +35,22 @@
         }
 
         .logo-text {
-            font-weight: bold;
-            font-size: 20px;
-            padding: 15px 20px;
-            background: var(--accent);
-            color: #000;
-            text-decoration: none;
-            letter-spacing: 1px;
+            font-weight: bold; font-size: 20px; padding: 15px 20px;
+            background: var(--accent); color: #000;
+            text-decoration: none; letter-spacing: 1px;
         }
 
         .menu { display: flex; }
-
         .menu a {
-            color: #bbb;
-            text-decoration: none;
-            padding: 18px 20px;
-            text-transform: uppercase;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
+            color: #bbb; text-decoration: none; padding: 18px 20px;
+            text-transform: uppercase; font-size: 14px; font-weight: bold;
         }
-
-        .menu a:hover {
-            background: #252525;
-            color: #fff;
-        }
+        .menu a:hover { background: #252525; color: #fff; }
 
         .container {
-            max-width: 1100px;
-            margin: 20px auto;
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
-            padding: 0 10px;
+            max-width: 1100px; margin: 20px auto;
+            display: grid; grid-template-columns: 1fr 300px;
+            gap: 20px; padding: 0 10px;
         }
 
         .section { display: none; animation: fadeIn 0.3s; }
@@ -78,47 +59,35 @@
         .card {
             background: var(--panel-bg);
             border: 1px solid var(--border);
-            margin-bottom: 10px;
-            padding: 15px;
+            margin-bottom: 10px; padding: 15px;
         }
 
         .card h2 {
-            margin-top: 0;
-            color: var(--accent);
+            margin-top: 0; color: var(--accent);
             border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            text-transform: uppercase;
-            font-size: 18px;
+            padding-bottom: 10px; text-transform: uppercase; font-size: 18px;
         }
 
-        .tier-badge {
-            background: #444;
-            color: var(--accent);
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 13px; text-transform: uppercase; }
+        /* Таблица игроков */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 13px; }
         td { padding: 10px; border-bottom: 1px solid var(--border); font-size: 14px; }
+        
+        .clickable-player { color: #fff; cursor: pointer; font-weight: bold; text-decoration: underline; }
+        .clickable-player:hover { color: var(--accent); }
 
-        .rating-none { color: #888; font-style: italic; }
+        /* Профиль игрока */
+        .player-profile { display: none; background: var(--panel-bg); border: 1px solid var(--accent); padding: 20px; position: relative; }
+        .back-btn { background: var(--accent); border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
+        .profile-info h1 { margin: 5px 0; color: var(--accent); }
+        .profile-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .detail-item { background: #252525; padding: 10px; border-radius: 4px; }
+        .detail-label { color: #888; font-size: 12px; display: block; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .sidebar { background: var(--panel-bg); padding: 15px; border: 1px solid var(--border); height: fit-content; }
         .match-mini { font-size: 13px; padding: 5px 0; border-bottom: 1px solid #333; display: flex; justify-content: space-between; }
-        
-        .news-item h4 { margin: 10px 0 5px 0; color: #fff; }
-        .news-item p { font-size: 14px; color: #aaa; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -140,69 +109,60 @@
         
         <div id="home" class="section active">
             <div class="card">
-                <h2>Главные новости <span class="tier-badge">Tier-6 Scene</span></h2>
-                <div class="news-item">
-                    <h4>Добро пожаловать на ECHOLTV</h4>
-                    <p>Это независимый портал статистики и новостей CS2, ориентированный на Tier-6 сцену. Мы создаем пространство для амбициозных игроков и команд, которые начинают свой путь к вершинам киберспорта.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="news" class="section">
-            <div class="card">
-                <h2>Лента новостей</h2>
-                <div class="news-item">
-                    <h4>Запуск бета-версии ECHOLTV</h4>
-                    <p>Сегодня официально запущен мониторинг Tier-6 игроков. Первые профили уже добавляются в базу.</p>
-                </div>
+                <h2>Главные новости</h2>
+                <p>Добро пожаловать на ECHOLTV — Tier-6 портал.</p>
             </div>
         </div>
 
         <div id="players" class="section">
-            <div class="card">
-                <h2>База игроков Tier-6</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Никнейм</th>
-                            <th>Команда</th>
-                            <th>Рейтинг 2.0</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>spokyso</strong></td>
-                            <td>Echofall</td>
-                            <td class="rating-none">None</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="players-list-view">
+                <div class="card">
+                    <h2>База игроков Tier-6</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Никнейм</th>
+                                <th>Рейтинг 2.0</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="clickable-player" onclick="showPlayerProfile('spokyso')">spokyso</td>
+                                <td style="color: #888;">None</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="player-profile-view" class="player-profile">
+                <button class="back-btn" onclick="hidePlayerProfile()">← Назад к списку</button>
+                <div class="profile-info">
+                    <span style="color: var(--accent);">ПРОФИЛЬ ИГРОКА</span>
+                    <h1 id="prof-nick">spokyso / Юра</h1>
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Возраст</span>
+                            <span id="prof-age">18 лет</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Роль</span>
+                            <span id="prof-role">рифлер</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="matches" class="section">
-            <div class="card">
-                <h2>Расписание матчей</h2>
-                <div class="match-mini"><span>Турниры Tier-6</span> <span>В ожидании анонсов</span></div>
-            </div>
-        </div>
-
-        <div id="teams" class="section">
-            <div class="card">
-                <h2>Рейтинг команд</h2>
-                <ol style="padding-left: 20px;">
-                    <li>Echofall</li>
-                    <li>TBD</li>
-                    <li>TBD</li>
-                </ol>
-            </div>
-        </div>
+        <div id="news" class="section"><div class="card"><h2>Новости</h2><p>Лента обновляется...</p></div></div>
+        <div id="matches" class="section"><div class="card"><h2>Матчи</h2><p>Нет активных игр.</p></div></div>
+        <div id="teams" class="section"><div class="card"><h2>Команды</h2><p>Echofall</p></div></div>
 
     </div>
 
     <div class="sidebar">
         <h3>Матчи LIVE</h3>
-        <div class="match-mini" style="color: #666;">Нет активных игр</div>
+        <div class="match-mini">Нет событий</div>
     </div>
 </div>
 
@@ -211,7 +171,18 @@
         const sections = document.querySelectorAll('.section');
         sections.forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
+        hidePlayerProfile(); // Сброс профиля при переходе
+    }
+
+    function showPlayerProfile(nickname) {
+        document.getElementById('players-list-view').style.display = 'none';
+        document.getElementById('player-profile-view').style.display = 'block';
+        // Здесь можно добавить логику смены данных, если игроков будет много
+    }
+
+    function hidePlayerProfile() {
+        document.getElementById('players-list-view').style.display = 'block';
+        document.getElementById('player-profile-view').style.display = 'none';
     }
 </script>
 
