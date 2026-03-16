@@ -37,6 +37,7 @@
         .clickable { color: #fff; cursor: pointer; font-weight: bold; }
         .clickable:hover { text-decoration: underline; color: var(--accent); }
 
+        /* ПРОФИЛИ */
         .profile-view { display: none; background: var(--panel-bg); border: 1px solid var(--border); animation: fadeIn 0.4s; padding-bottom: 20px; }
         .profile-header { display: flex; background: #1a1a1a; padding: 25px; border-bottom: 2px solid var(--accent); }
         .profile-img { width: 180px; height: 180px; background: #252525; border: 2px solid var(--border); object-fit: cover; }
@@ -60,6 +61,10 @@
         .place-2 { color: var(--silver); font-weight: bold; }
 
         .back-btn { background: #333; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 10px; font-size: 12px; }
+
+        .role-badge { background: #444; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px; vertical-align: middle; }
+        .team-link { color: #888; text-decoration: none; font-size: 13px; }
+        .team-link:hover { color: var(--accent); }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .sidebar { background: var(--panel-bg); padding: 15px; border: 1px solid var(--border); height: fit-content; }
@@ -93,11 +98,21 @@
                 <div class="card">
                     <h2>База игроков</h2>
                     <table>
-                        <thead><tr><th>Никнейм</th><th>ELO</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Игрок</th>
+                                <th>ELO</th>
+                                <th>Команда</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr>
-                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
+                                <td>
+                                    <span class="clickable" onclick="showPlayerProfile()">spokyso</span>
+                                    <span class="role-badge">IGL</span>
+                                </td>
                                 <td style="color: var(--elo-red); font-weight: bold;">2100</td>
+                                <td><span class="clickable team-link" onclick="showTeamProfile()">Echofall</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -166,8 +181,19 @@
                     <div id="team-achievements-content"></div>
                 </div>
                 <div class="card" style="margin: 0 20px;">
-                    <h3>Состав</h3>
-                    <table><tr><td class="clickable" onclick="showPlayerProfile()">spokyso</td><td style="color:var(--elo-red)">2100</td></tr></table>
+                    <h3>Состав команды</h3>
+                    <table>
+                        <thead>
+                            <tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
+                                <td style="color: var(--elo-red); font-weight: bold;">2100</td>
+                                <td><span class="role-badge">IGL</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
