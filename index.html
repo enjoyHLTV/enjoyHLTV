@@ -13,7 +13,7 @@
             --border: #333;
             --gold: #ffd700;
             --silver: #c0c0c0;
-            --elo-color: #ff5e00;
+            --elo-red: #ff3e3e;
         }
 
         body { background-color: var(--main-bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; }
@@ -38,16 +38,21 @@
         .clickable:hover { text-decoration: underline; color: var(--accent); }
 
         .profile-view { display: none; background: var(--panel-bg); border: 1px solid var(--border); animation: fadeIn 0.4s; padding-bottom: 20px; }
-        .profile-header { display: flex; background: #1a1a1a; padding: 20px; border-bottom: 2px solid var(--accent); }
+        .profile-header { display: flex; background: #1a1a1a; padding: 25px; border-bottom: 2px solid var(--accent); }
         .profile-img { width: 180px; height: 180px; background: #252525; border: 2px solid var(--border); object-fit: cover; }
-        .profile-main-info { margin-left: 25px; flex-grow: 1; }
-        .profile-main-info h1 { margin: 0; font-size: 32px; color: #fff; }
         
+        .profile-main-info { margin-left: 30px; flex-grow: 1; }
+        .profile-main-info h1 { margin: 0; font-size: 38px; color: #fff; line-height: 1; }
+        .player-sub-header { margin-top: 10px; display: flex; gap: 15px; align-items: center; }
+        .social-links { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .social-icon { background: #333; color: var(--accent); padding: 6px 12px; border-radius: 3px; font-size: 11px; text-decoration: none; font-weight: bold; border: 1px solid #444; transition: 0.2s; }
+        .social-icon:hover { background: var(--accent); color: #000; transform: translateY(-2px); }
+
         .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 20px; }
         .info-box { background: #252525; padding: 12px; border-radius: 4px; border-left: 3px solid var(--accent); }
         .info-label { display: block; color: #777; font-size: 11px; text-transform: uppercase; margin-bottom: 4px; }
         .info-value { font-weight: bold; font-size: 15px; }
-        .elo-value { color: var(--elo-color); }
+        .elo-red-value { color: var(--elo-red); font-size: 20px; }
 
         .achievements-list { list-style: none; padding: 0; margin: 0; }
         .achievement-item { display: flex; justify-content: space-between; padding: 8px 10px; background: #252525; margin-bottom: 5px; border-radius: 3px; font-size: 14px; }
@@ -92,7 +97,7 @@
                         <tbody>
                             <tr>
                                 <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
-                                <td style="color: var(--elo-color); font-weight: bold;">2100</td>
+                                <td style="color: var(--elo-red); font-weight: bold;">2100</td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,16 +110,25 @@
                     <img src="8f8ad45c-d658-47e3-b3b3-545cc8983645.jpg" class="profile-img" alt="spokyso">
                     <div class="profile-main-info">
                         <h1>spokyso</h1>
-                        <p><img src="https://flagcdn.com/w40/ua.png" style="width:20px"> Юра</p>
+                        <div class="player-sub-header">
+                            <span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Юра</span>
+                            <span style="color: #666;">|</span>
+                            <span style="color: var(--accent); font-weight: bold;">Captain of Echofall</span>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://steamcommunity.com/profiles/76561199480282692/" target="_blank" class="social-icon">STEAM</a>
+                            <a href="https://www.twitch.tv/spokyso" target="_blank" class="social-icon">TWITCH</a>
+                            <a href="https://t.me/spokyso" target="_blank" class="social-icon">TELEGRAM</a>
+                        </div>
                     </div>
                 </div>
                 <div class="profile-grid">
-                    <div class="info-box"><span class="info-label">ELO</span><span class="info-value elo-value">2100</span></div>
-                    <div class="info-box"><span class="info-label">Возраст</span><span class="info-value">18 лет</span></div>
-                    <div class="info-box"><span class="info-label">Роль</span><span class="info-value">Rifler / IGL</span></div>
+                    <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value elo-red-value">2100</span></div>
+                    <div class="info-box"><span class="info-label">Age</span><span class="info-value">18 years old</span></div>
+                    <div class="info-box"><span class="info-label">Role</span><span class="info-value">Rifler / IGL</span></div>
                 </div>
                 <div class="card" style="margin: 0 20px;">
-                    <h3>Достижения</h3>
+                    <h3>Achievements</h3>
                     <div id="achievements-content"></div>
                 </div>
             </div>
@@ -135,14 +149,16 @@
                     </table>
                 </div>
             </div>
-
             <div id="team-profile-view" class="profile-view">
                 <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К РЕЙТИНГУ</button>
                 <div class="profile-header">
                     <img src="8f8ad45c-d658-47e3-b3b3-545cc8983645.jpg" class="profile-img" alt="Echofall">
                     <div class="profile-main-info">
                         <h1>Echofall</h1>
-                        <p>Организация: Tier-6 Team</p>
+                        <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p>
+                        <div class="social-links">
+                            <a href="https://t.me/echofallcs" target="_blank" class="social-icon">TG CHANNEL</a>
+                        </div>
                     </div>
                 </div>
                 <div class="card" style="margin: 20px;">
@@ -151,19 +167,13 @@
                 </div>
                 <div class="card" style="margin: 0 20px;">
                     <h3>Состав</h3>
-                    <table>
-                        <tr><td class="clickable" onclick="showPlayerProfile()">spokyso</td><td style="color:var(--elo-color)">2100</td></tr>
-                    </table>
+                    <table><tr><td class="clickable" onclick="showPlayerProfile()">spokyso</td><td style="color:var(--elo-red)">2100</td></tr></table>
                 </div>
             </div>
         </div>
 
     </div>
-
-    <div class="sidebar">
-        <h3>Матчи LIVE</h3>
-        <p style="font-size: 12px; color: #666;">Событий нет</p>
-    </div>
+    <div class="sidebar"><h3>Матчи LIVE</h3><p style="font-size: 12px; color: #666;">Событий нет</p></div>
 </div>
 
 <script>
