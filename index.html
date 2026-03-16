@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echofall | HLTV Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="brand">ECHOFALL</div>
+                <div class="menu">
+                    <a href="#" onclick="showPage('home')">Главная</a>
+                    <a href="#" onclick="showPage('teams')">Команды</a>
+                    <a href="#" onclick="showPage('players')">Игроки</a>
+                    <a href="#" onclick="showPage('news')">Новости</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="page-section active">
+            <h2>Последние результаты</h2>
+            <div class="match-card win">
+                <span class="date">Сегодня, 18:00</span>
+                <span class="teams">Echofall vs Navi Junior</span>
+                <span class="score">13:7</span>
+            </div>
+        </section>
+
+        <section id="teams" class="page-section">
+            <h2>Наши составы</h2>
+            <div class="team-block">
+                <h3>Echofall Main</h3>
+                <p>Основной состав организации</p>
+            </div>
+            <div class="team-block">
+                <h3>Echofall Academy</h3>
+                <p>Молодежный состав</p>
+            </div>
+        </section>
+
+        <section id="players" class="page-section">
+            <h2>Рейтинг игроков</h2>
+            <table class="players-table">
+                <thead>
+                    <tr>
+                        <th>Никнейм</th>
+                        <th>Роль</th>
+                        <th>ELO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>spokyso</td>
+                        <td>Rifler (C)</td>
+                        <td>2300</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="news" class="page-section">
+            <h2>Новости организации</h2>
+            <article class="news-item">
+                <h3>Открытие набора в Академию</h3>
+                <p>Мы ищем молодые таланты для участия в IPE MAJOR 2026...</p>
+            </article>
+        </section>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Скрываем все секции
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Показываем нужную
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
