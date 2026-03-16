@@ -11,11 +11,13 @@
             --accent: #d1c7a7;
             --text: #e0e0e0;
             --border: #333;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --elo-color: #ff5e00;
         }
 
         body { background-color: var(--main-bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; }
 
-        /* Навигация */
         nav { background: #1a1a1a; border-bottom: 3px solid var(--accent); position: sticky; top: 0; z-index: 100; }
         .nav-container { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; }
         .logo-text { font-weight: bold; font-size: 20px; padding: 15px 20px; background: var(--accent); color: #000; text-decoration: none; }
@@ -29,24 +31,28 @@
         .card { background: var(--panel-bg); border: 1px solid var(--border); margin-bottom: 10px; padding: 15px; }
         .card h2 { margin-top: 0; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; font-size: 18px; }
 
-        /* Таблицы и списки */
         table { width: 100%; border-collapse: collapse; }
         th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 12px; }
         td { padding: 12px 10px; border-bottom: 1px solid var(--border); }
         .clickable { color: #fff; cursor: pointer; font-weight: bold; }
         .clickable:hover { text-decoration: underline; color: var(--accent); }
 
-        /* ПРОФИЛИ */
-        .profile-view { display: none; background: var(--panel-bg); border: 1px solid var(--border); animation: fadeIn 0.4s; }
+        .profile-view { display: none; background: var(--panel-bg); border: 1px solid var(--border); animation: fadeIn 0.4s; padding-bottom: 20px; }
         .profile-header { display: flex; background: #1a1a1a; padding: 20px; border-bottom: 2px solid var(--accent); }
         .profile-img { width: 180px; height: 180px; background: #252525; border: 2px solid var(--border); object-fit: cover; }
         .profile-main-info { margin-left: 25px; flex-grow: 1; }
         .profile-main-info h1 { margin: 0; font-size: 32px; color: #fff; }
         
-        .profile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+        .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 20px; }
         .info-box { background: #252525; padding: 12px; border-radius: 4px; border-left: 3px solid var(--accent); }
         .info-label { display: block; color: #777; font-size: 11px; text-transform: uppercase; margin-bottom: 4px; }
-        .info-value { font-weight: bold; font-size: 16px; }
+        .info-value { font-weight: bold; font-size: 15px; }
+        .elo-value { color: var(--elo-color); }
+
+        .achievements-list { list-style: none; padding: 0; margin: 0; }
+        .achievement-item { display: flex; justify-content: space-between; padding: 8px 10px; background: #252525; margin-bottom: 5px; border-radius: 3px; font-size: 14px; }
+        .place-1 { color: var(--gold); font-weight: bold; }
+        .place-2 { color: var(--silver); font-weight: bold; }
 
         .back-btn { background: #333; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 10px; font-size: 12px; }
 
@@ -73,7 +79,7 @@
         <div id="home" class="section active">
             <div class="card">
                 <h2>Главные новости</h2>
-                <p>Добро пожаловать на ECHOLTV — Tier-6 портал статистики.</p>
+                <p>ECHOLTV — Твой Tier-6 хаб статистики и достижений.</p>
             </div>
         </div>
 
@@ -82,16 +88,17 @@
                 <div class="card">
                     <h2>База игроков</h2>
                     <table>
-                        <thead><tr><th>Никнейм</th><th>Рейтинг 2.0</th></tr></thead>
+                        <thead><tr><th>Никнейм</th><th>ELO</th></tr></thead>
                         <tbody>
                             <tr>
                                 <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
-                                <td style="color: #666;">None</td>
+                                <td style="color: var(--elo-color); font-weight: bold;">2100</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            
             <div id="player-profile-view" class="profile-view">
                 <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К СПИСКУ</button>
                 <div class="profile-header">
@@ -102,10 +109,13 @@
                     </div>
                 </div>
                 <div class="profile-grid">
+                    <div class="info-box"><span class="info-label">ELO</span><span class="info-value elo-value">2100</span></div>
                     <div class="info-box"><span class="info-label">Возраст</span><span class="info-value">18 лет</span></div>
-                    <div class="info-box"><span class="info-label">Команда</span><span class="info-value">Echofall</span></div>
-                    <div class="info-box"><span class="info-label">Позиция</span><span class="info-value">Rifler / IGL</span></div>
-                    <div class="info-box"><span class="info-label">Страна</span><span class="info-value">Украина</span></div>
+                    <div class="info-box"><span class="info-label">Роль</span><span class="info-value">Rifler / IGL</span></div>
+                </div>
+                <div class="card" style="margin: 0 20px;">
+                    <h3>Достижения</h3>
+                    <div id="achievements-content"></div>
                 </div>
             </div>
         </div>
@@ -125,6 +135,7 @@
                     </table>
                 </div>
             </div>
+
             <div id="team-profile-view" class="profile-view">
                 <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К РЕЙТИНГУ</button>
                 <div class="profile-header">
@@ -134,35 +145,49 @@
                         <p>Организация: Tier-6 Team</p>
                     </div>
                 </div>
-                <div class="profile-grid">
-                    <div class="info-box"><span class="info-label">Среднее ELO</span><span class="info-value">None</span></div>
-                    <div class="info-box"><span class="info-label">Страна</span><span class="info-value">Украина</span></div>
+                <div class="card" style="margin: 20px;">
+                    <h3>Трофеи команды</h3>
+                    <div id="team-achievements-content"></div>
                 </div>
-                <div class="card" style="margin: 20px; border-left:none;">
-                    <h3>Состав команды</h3>
+                <div class="card" style="margin: 0 20px;">
+                    <h3>Состав</h3>
                     <table>
-                        <thead><tr><th>Игрок</th><th>Роль</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
-                                <td>Rifler / IGL</td>
-                            </tr>
-                        </tbody>
+                        <tr><td class="clickable" onclick="showPlayerProfile()">spokyso</td><td style="color:var(--elo-color)">2100</td></tr>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div id="news" class="section"><div class="card"><h2>Новости</h2><p>Обновлений пока нет.</p></div></div>
     </div>
 
     <div class="sidebar">
         <h3>Матчи LIVE</h3>
-        <p style="font-size: 12px; color: #666;">Нет активных событий</p>
+        <p style="font-size: 12px; color: #666;">Событий нет</p>
     </div>
 </div>
 
 <script>
+    const achievementsData = [
+        { name: "B7 Tournament", place: 1 },
+        { name: "Aquex cup", place: 2 },
+        { name: "Blasty Open Winter", place: 1 },
+        { name: "IPE Major", place: 2 },
+        { name: "AVENTUS Cup", place: 1 },
+        { name: "Cupix Open March", place: 1 },
+        { name: "LTL Liga Cup", place: 1 }
+    ];
+
+    function renderAchievements(targetId) {
+        const container = document.getElementById(targetId);
+        container.innerHTML = '<ul class="achievements-list">' + 
+            achievementsData.map(a => `
+                <li class="achievement-item">
+                    <span>${a.name}</span>
+                    <span class="place-${a.place}">${a.place === 1 ? '🥇 1st' : '🥈 2nd'}</span>
+                </li>
+            `).join('') + '</ul>';
+    }
+
     function showSection(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -173,12 +198,14 @@
         hideAllViews();
         document.getElementById('players').classList.add('active');
         document.getElementById('player-profile-view').style.display = 'block';
+        renderAchievements('achievements-content');
     }
 
     function showTeamProfile() {
         hideAllViews();
         document.getElementById('teams').classList.add('active');
         document.getElementById('team-profile-view').style.display = 'block';
+        renderAchievements('team-achievements-content');
     }
 
     function hideAllViews() {
@@ -195,6 +222,5 @@
         document.getElementById('team-profile-view').style.display = 'none';
     }
 </script>
-
 </body>
 </html>
