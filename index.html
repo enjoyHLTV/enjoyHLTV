@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnjoyHLTV | CS2 Portal</title>
+    <title>ECHOLTV | CS2 Tier-6 Portal</title>
     <style>
         :root {
             --main-bg: #121212;
@@ -20,7 +20,6 @@
             margin: 0;
         }
 
-        /* Навигация как на HLTV */
         nav {
             background: #1a1a1a;
             border-bottom: 3px solid var(--accent);
@@ -44,11 +43,10 @@
             background: var(--accent);
             color: #000;
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
-        .menu {
-            display: flex;
-        }
+        .menu { display: flex; }
 
         .menu a {
             color: #bbb;
@@ -74,14 +72,7 @@
             padding: 0 10px;
         }
 
-        /* Блоки контента */
-        .content-main { background: transparent; }
-        
-        .section {
-            display: none; /* Скрыто по умолчанию */
-            animation: fadeIn 0.3s;
-        }
-
+        .section { display: none; animation: fadeIn 0.3s; }
         .active { display: block; }
 
         .card {
@@ -96,35 +87,45 @@
             color: var(--accent);
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 18px;
         }
 
-        /* Таблица игроков */
+        .tier-badge {
+            background: #444;
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
 
-        th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); }
-        td { padding: 10px; border-bottom: 1px solid var(--border); }
+        th { text-align: left; color: var(--accent); padding: 10px; border-bottom: 2px solid var(--border); font-size: 13px; text-transform: uppercase; }
+        td { padding: 10px; border-bottom: 1px solid var(--border); font-size: 14px; }
 
-        .rating { font-weight: bold; color: #4caf50; }
+        .rating-none { color: #888; font-style: italic; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Сайдбар */
         .sidebar { background: var(--panel-bg); padding: 15px; border: 1px solid var(--border); height: fit-content; }
         .match-mini { font-size: 13px; padding: 5px 0; border-bottom: 1px solid #333; display: flex; justify-content: space-between; }
+        
+        .news-item h4 { margin: 10px 0 5px 0; color: #fff; }
+        .news-item p { font-size: 14px; color: #aaa; line-height: 1.5; }
     </style>
 </head>
 <body>
 
 <nav>
     <div class="nav-container">
-        <a href="#" class="logo-text" onclick="showSection('home')">ENJOY HLTV</a>
+        <a href="#" class="logo-text" onclick="showSection('home')">ECHOLTV</a>
         <div class="menu">
             <a href="#" onclick="showSection('news')">Новости</a>
             <a href="#" onclick="showSection('matches')">Матчи</a>
@@ -139,8 +140,11 @@
         
         <div id="home" class="section active">
             <div class="card">
-                <h2>Главные новости</h2>
-                <p>Добро пожаловать на EnjoyHLTV — портал статистики и новостей CS2.</p>
+                <h2>Главные новости <span class="tier-badge">Tier-6 Scene</span></h2>
+                <div class="news-item">
+                    <h4>Добро пожаловать на ECHOLTV</h4>
+                    <p>Это независимый портал статистики и новостей CS2, ориентированный на Tier-6 сцену. Мы создаем пространство для амбициозных игроков и команд, которые начинают свой путь к вершинам киберспорта.</p>
+                </div>
             </div>
         </div>
 
@@ -148,28 +152,29 @@
             <div class="card">
                 <h2>Лента новостей</h2>
                 <div class="news-item">
-                    <h4>Обновление рейтингов Valve</h4>
-                    <p>Опубликован свежий список лучших команд мира...</p>
+                    <h4>Запуск бета-версии ECHOLTV</h4>
+                    <p>Сегодня официально запущен мониторинг Tier-6 игроков. Первые профили уже добавляются в базу.</p>
                 </div>
             </div>
         </div>
 
         <div id="players" class="section">
             <div class="card">
-                <h2>Топ игроков CS2</h2>
+                <h2>База игроков Tier-6</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>Игрок</th>
+                            <th>Никнейм</th>
                             <th>Команда</th>
                             <th>Рейтинг 2.0</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>zywoo</td><td>Vitality</td><td class="rating">1.32</td></tr>
-                        <tr><td>donk</td><td>Spirit</td><td class="rating">1.29</td></tr>
-                        <tr><td>m0NESY</td><td>G2</td><td class="rating">1.25</td></tr>
-                        <tr><td>spokyso</td><td>Echofall</td><td class="rating">1.15</td></tr>
+                        <tr>
+                            <td><strong>spokyso</strong></td>
+                            <td>Echofall</td>
+                            <td class="rating-none">None</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -177,20 +182,18 @@
 
         <div id="matches" class="section">
             <div class="card">
-                <h2>Сегодняшние матчи</h2>
-                <div class="match-mini"><span>FaZe vs MOUZ</span> <span>19:00</span></div>
-                <div class="match-mini"><span>Spirit vs Virtus.pro</span> <span>21:30</span></div>
+                <h2>Расписание матчей</h2>
+                <div class="match-mini"><span>Турниры Tier-6</span> <span>В ожидании анонсов</span></div>
             </div>
         </div>
 
         <div id="teams" class="section">
             <div class="card">
-                <h2>Мировой рейтинг команд</h2>
-                <ol>
-                    <li>FaZe Clan</li>
-                    <li>Team Spirit</li>
-                    <li>Natus Vincere</li>
+                <h2>Рейтинг команд</h2>
+                <ol style="padding-left: 20px;">
                     <li>Echofall</li>
+                    <li>TBD</li>
+                    <li>TBD</li>
                 </ol>
             </div>
         </div>
@@ -198,20 +201,17 @@
     </div>
 
     <div class="sidebar">
-        <h3>Ближайшие игры</h3>
-        <div class="match-mini">G2 vs Astralis <span>LIVE</span></div>
-        <div class="match-mini">Vitality vs Liquid <span>22:00</span></div>
+        <h3>Матчи LIVE</h3>
+        <div class="match-mini" style="color: #666;">Нет активных игр</div>
     </div>
 </div>
 
 <script>
     function showSection(id) {
-        // Скрываем все секции
         const sections = document.querySelectorAll('.section');
         sections.forEach(s => s.classList.remove('active'));
-        
-        // Показываем нужную
         document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
     }
 </script>
 
