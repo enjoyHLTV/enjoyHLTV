@@ -143,7 +143,7 @@
                 <p>Твой Tier-6 хаб статистики и достижений</p>
                 <div class="stats-grid">
                     <div class="stat-item clickable" onclick="showSection('players')">
-                        <span class="stat-value">2</span>
+                        <span class="stat-value">3</span>
                         <span class="stat-label">Игроков в базе</span>
                     </div>
                     <div class="stat-item clickable" onclick="showSection('teams')">
@@ -198,8 +198,17 @@
                                     <span class="role-badge">IGL</span>
                                 </td>
                                 <td style="color: #4caf50; font-weight: bold;">969</td>
-                                <td style="color: var(--gold); font-weight: bold;">70</td>
+                                <td style="color: var(--gold); font-weight: bold;">-</td>
                                 <td><span class="clickable team-link" onclick="showGenerationProfile()">Generation</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="clickable" onclick="showGer1dinProfile()">ger1din</span>
+                                    <span class="role-badge">Support</span>
+                                </td>
+                                <td style="color: #4caf50; font-weight: bold;">1300</td>
+                                <td style="color: var(--gold); font-weight: bold;">-</td>
+                                <td>-</td>
                             </tr>
                         </tbody>
                     </table>
@@ -298,6 +307,10 @@
 
     function renderAchievs(data, targetId) {
         const container = document.getElementById(targetId);
+        if(!data || data.length === 0) {
+            container.innerHTML = '<p style="color:#666; font-size:14px;">Достижений пока нет</p>';
+            return;
+        }
         container.innerHTML = '<ul class="achievements-list">' + 
             data.map(a => `
                 <li class="achievement-item">
@@ -351,6 +364,26 @@
             </div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-frost"></div></div>`;
         renderAchievs(achievementsFrost, 'ach-frost');
+    }
+
+    function showGer1dinProfile() {
+        hideAllViews();
+        document.getElementById('players').classList.add('active');
+        document.getElementById('player-profile-view').style.display = 'block';
+        document.getElementById('profile-content-placeholder').innerHTML = `
+            <div class="profile-header">
+                <img src="ger1din.jpg" class="profile-img" alt="ger1din" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
+                <div class="profile-main-info"><h1>ger1din</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ru.png" style="width:18px; vertical-align:middle;"> Максим</span></div>
+                <div class="social-links"><a href="https://t.me/ger1din" target="_blank" class="social-icon">TG CONTACT</a></div></div>
+            </div>
+            <div class="profile-grid">
+                <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value" style="color:#4caf50; font-size:20px;">1300</span></div>
+                <div class="info-box"><span class="info-label">Rating</span><span class="info-value rating-value">-</span></div>
+                <div class="info-box"><span class="info-label">Age</span><span class="info-value">14 years old</span></div>
+                <div class="info-box"><span class="info-label">Role</span><span class="info-value">Support</span></div>
+            </div>
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-ger1din"></div></div>`;
+        renderAchievs([], 'ach-ger1din');
     }
 
     function showTeamProfile() {
