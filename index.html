@@ -318,6 +318,12 @@
         { name: "LTL liga cup", place: 3 }
     ];
 
+    // ДОБАВЛЕНЫ ДОСТИЖЕНИЯ N3XXT
+    const achievementsN3xxt = [
+        { name: "nxt academi cup", place: 2 },
+        { name: "LTL liga cup", place: 3 }
+    ];
+
     function renderAchievs(data, targetId) {
         const container = document.getElementById(targetId);
         if(!data || data.length === 0) {
@@ -416,7 +422,7 @@
                 <div class="info-box"><span class="info-label">Role</span><span class="info-value">Entry</span></div>
             </div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-n3xxt"></div></div>`;
-        renderAchievs([], 'ach-n3xxt');
+        renderAchievs(achievementsN3xxt, 'ach-n3xxt'); // ТЕПЕРЬ ОТОБРАЖАЮТСЯ
     }
 
     function showTeamProfile() {
