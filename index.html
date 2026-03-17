@@ -143,7 +143,7 @@
                 <p>Твой Tier-6 хаб статистики и достижений</p>
                 <div class="stats-grid">
                     <div class="stat-item clickable" onclick="showSection('players')">
-                        <span class="stat-value">4</span>
+                        <span class="stat-value">5</span>
                         <span class="stat-label">Игроков в базе</span>
                     </div>
                     <div class="stat-item clickable" onclick="showSection('teams')">
@@ -194,11 +194,20 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <span class="clickable" onclick="showIL1kProfile()">iL1k</span>
+                                    <span class="role-badge">IGL/Support</span>
+                                </td>
+                                <td style="color: #4caf50; font-weight: bold;">1277</td>
+                                <td style="color: var(--gold); font-weight: bold;">100</td>
+                                <td><span class="clickable team-link" onclick="showTeamProfile()">Echofall</span></td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <span class="clickable" onclick="showFrostProfile()">fR0-ST</span>
                                     <span class="role-badge">IGL</span>
                                 </td>
                                 <td style="color: #4caf50; font-weight: bold;">969</td>
-                                <td style="color: var(--gold); font-weight: bold;">70</td>
+                                <td style="color: var(--gold); font-weight: bold;">-</td>
                                 <td><span class="clickable team-link" onclick="showGenerationProfile()">Generation</span></td>
                             </tr>
                             <tr>
@@ -216,7 +225,7 @@
                                     <span class="role-badge">Entry</span>
                                 </td>
                                 <td style="color: #4caf50; font-weight: bold;">1010</td>
-                                <td style="color: var(--gold); font-weight: bold;">70</td>
+                                <td style="color: var(--gold); font-weight: bold;">-</td>
                                 <td><span class="clickable team-link" onclick="showGenerationProfile()">Generation</span></td>
                             </tr>
                         </tbody>
@@ -244,7 +253,7 @@
                         <tbody>
                             <tr>
                                 <td class="clickable" onclick="showTeamProfile()">Echofall</td>
-                                <td style="color: var(--accent); font-weight: bold;">600</td>
+                                <td style="color: var(--accent); font-weight: bold;">700</td>
                             </tr>
                             <tr>
                                 <td class="clickable" onclick="showGenerationProfile()">Generation academy</td>
@@ -318,7 +327,6 @@
         { name: "LTL liga cup", place: 3 }
     ];
 
-    // ДОБАВЛЕНЫ ДОСТИЖЕНИЯ N3XXT
     const achievementsN3xxt = [
         { name: "nxt academi cup", place: 2 },
         { name: "LTL liga cup", place: 3 }
@@ -363,6 +371,26 @@
             </div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-list"></div></div>`;
         renderAchievs(achievementsSpoky, 'ach-list');
+    }
+
+    function showIL1kProfile() {
+        hideAllViews();
+        document.getElementById('players').classList.add('active');
+        document.getElementById('player-profile-view').style.display = 'block';
+        document.getElementById('profile-content-placeholder').innerHTML = `
+            <div class="profile-header">
+                <img src="il1k.jpg" class="profile-img" alt="iL1k" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
+                <div class="profile-main-info"><h1>iL1k</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Илья</span></div>
+                <div class="social-links"><a href="https://t.me/dekyyS" target="_blank" class="social-icon">TG CONTACT</a></div></div>
+            </div>
+            <div class="profile-grid">
+                <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value" style="color:#4caf50; font-size:20px;">1277</span></div>
+                <div class="info-box"><span class="info-label">Rating</span><span class="info-value rating-value">100</span></div>
+                <div class="info-box"><span class="info-label">Age</span><span class="info-value">19 years old</span></div>
+                <div class="info-box"><span class="info-label">Role</span><span class="info-value">IGL/Support</span></div>
+            </div>
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-il1k"></div></div>`;
+        renderAchievs([], 'ach-il1k');
     }
 
     function showFrostProfile() {
@@ -422,7 +450,7 @@
                 <div class="info-box"><span class="info-label">Role</span><span class="info-value">Entry</span></div>
             </div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-n3xxt"></div></div>`;
-        renderAchievs(achievementsN3xxt, 'ach-n3xxt'); // ТЕПЕРЬ ОТОБРАЖАЮТСЯ
+        renderAchievs(achievementsN3xxt, 'ach-n3xxt');
     }
 
     function showTeamProfile() {
@@ -438,7 +466,10 @@
             <div class="card" style="margin: 20px;"><h3>Трофеи команды</h3><div id="team-ach"></div></div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Состав команды</h3>
                 <table><thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
-                <tbody><tr><td class="clickable" onclick="showPlayerProfile()">spokyso</td><td style="color: var(--elo-red); font-weight: bold;">2100</td><td><span class="role-badge">IGL</span></td></tr></tbody></table>
+                <tbody>
+                    <tr><td class="clickable" onclick="showPlayerProfile()">spokyso</td><td style="color: var(--elo-red); font-weight: bold;">2100</td><td><span class="role-badge">IGL</span></td></tr>
+                    <tr><td class="clickable" onclick="showIL1kProfile()">iL1k</td><td style="color: #4caf50; font-weight: bold;">1277</td><td><span class="role-badge">IGL/Support</span></td></tr>
+                </tbody></table>
             </div>`;
         renderAchievs(achievementsSpoky, 'team-ach');
     }
