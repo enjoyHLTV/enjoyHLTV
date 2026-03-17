@@ -143,7 +143,7 @@
                 <p>Твой Tier-6 хаб статистики и достижений</p>
                 <div class="stats-grid">
                     <div class="stat-item clickable" onclick="showSection('players')">
-                        <span class="stat-value">3</span>
+                        <span class="stat-value">4</span>
                         <span class="stat-label">Игроков в базе</span>
                     </div>
                     <div class="stat-item clickable" onclick="showSection('teams')">
@@ -198,7 +198,7 @@
                                     <span class="role-badge">IGL</span>
                                 </td>
                                 <td style="color: #4caf50; font-weight: bold;">969</td>
-                                <td style="color: var(--gold); font-weight: bold;">70</td>
+                                <td style="color: var(--gold); font-weight: bold;">-</td>
                                 <td><span class="clickable team-link" onclick="showGenerationProfile()">Generation</span></td>
                             </tr>
                             <tr>
@@ -209,6 +209,15 @@
                                 <td style="color: #4caf50; font-weight: bold;">1300</td>
                                 <td style="color: var(--gold); font-weight: bold;">-</td>
                                 <td><span class="clickable team-link" onclick="showNeopredatesProfile()">Neopredates</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="clickable" onclick="showN3xxtProfile()">N3XXT</span>
+                                    <span class="role-badge">Entry</span>
+                                </td>
+                                <td style="color: #4caf50; font-weight: bold;">1010</td>
+                                <td style="color: var(--gold); font-weight: bold;">-</td>
+                                <td><span class="clickable team-link" onclick="showGenerationProfile()">Generation</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -390,6 +399,26 @@
         renderAchievs([], 'ach-ger1din');
     }
 
+    function showN3xxtProfile() {
+        hideAllViews();
+        document.getElementById('players').classList.add('active');
+        document.getElementById('player-profile-view').style.display = 'block';
+        document.getElementById('profile-content-placeholder').innerHTML = `
+            <div class="profile-header">
+                <img src="n3xxt.jpg" class="profile-img" alt="N3XXT" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
+                <div class="profile-main-info"><h1>N3XXT</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ru.png" style="width:18px; vertical-align:middle;"> Вадим</span></div>
+                <div class="social-links"><a href="https://t.me/N3XXTXD" target="_blank" class="social-icon">TG CONTACT</a></div></div>
+            </div>
+            <div class="profile-grid">
+                <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value" style="color:#4caf50; font-size:20px;">1010</span></div>
+                <div class="info-box"><span class="info-label">Rating</span><span class="info-value rating-value">-</span></div>
+                <div class="info-box"><span class="info-label">Age</span><span class="info-value">12 years old</span></div>
+                <div class="info-box"><span class="info-label">Role</span><span class="info-value">Entry</span></div>
+            </div>
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-n3xxt"></div></div>`;
+        renderAchievs([], 'ach-n3xxt');
+    }
+
     function showTeamProfile() {
         hideAllViews();
         document.getElementById('teams').classList.add('active');
@@ -421,7 +450,10 @@
             <div class="card" style="margin: 20px;"><h3>Трофеи команды</h3><div id="gen-ach"></div></div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Состав команды</h3>
                 <table><thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
-                <tbody><tr><td class="clickable" onclick="showFrostProfile()">fR0-ST</td><td style="color: #4caf50; font-weight: bold;">969</td><td><span class="role-badge">IGL</span></td></tr></tbody></table>
+                <tbody>
+                    <tr><td class="clickable" onclick="showFrostProfile()">fR0-ST</td><td style="color: #4caf50; font-weight: bold;">969</td><td><span class="role-badge">IGL</span></td></tr>
+                    <tr><td class="clickable" onclick="showN3xxtProfile()">N3XXT</td><td style="color: #4caf50; font-weight: bold;">1010</td><td><span class="role-badge">Entry</span></td></tr>
+                </tbody></table>
             </div>`;
         renderAchievs(achievementsFrost, 'gen-ach');
     }
