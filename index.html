@@ -284,7 +284,6 @@
     function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let line of lines) { line.update(); line.draw(); } requestAnimationFrame(animate); }
     animate();
 
-    // ДАННЫЕ
     const achievementsSpoky = [
         { name: "B7 Tournament", place: 1 }, { name: "Aquex cup", place: 2 },
         { name: "Blasty Open Winter", place: 1 }, { name: "IPE Major", place: 2 },
@@ -321,7 +320,8 @@
         document.getElementById('profile-content-placeholder').innerHTML = `
             <div class="profile-header">
                 <img src="player.jpg" class="profile-img" alt="spokyso" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
-                <div class="profile-main-info"><h1>spokyso</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Юра</span></div></div>
+                <div class="profile-main-info"><h1>spokyso</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Юра</span></div>
+                <div class="social-links"><a href="https://t.me/echofallcs" target="_blank" class="social-icon">TG CHANNEL</a></div></div>
             </div>
             <div class="profile-grid">
                 <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value elo-red-value">2100</span></div>
@@ -340,7 +340,8 @@
         document.getElementById('profile-content-placeholder').innerHTML = `
             <div class="profile-header">
                 <img src="frost.jpg" class="profile-img" alt="fR0-ST" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
-                <div class="profile-main-info"><h1>fR0-ST</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Player</span></div></div>
+                <div class="profile-main-info"><h1>fR0-ST</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Player</span></div>
+                <div class="social-links"><a href="https://t.me/man_LTL" target="_blank" class="social-icon">TG CONTACT</a></div></div>
             </div>
             <div class="profile-grid">
                 <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value" style="color:#4caf50; font-size:20px;">969</span></div>
@@ -359,7 +360,8 @@
         document.getElementById('team-profile-content').innerHTML = `
             <div class="profile-header">
                 <img src="logo.jpg" class="profile-img" alt="Echofall" onerror="this.src='https://via.placeholder.com/180?text=No+Logo'">
-                <div class="profile-main-info"><h1>Echofall</h1><p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p></div>
+                <div class="profile-main-info"><h1>Echofall</h1><p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p>
+                <div class="social-links"><a href="https://t.me/echofallcs" target="_blank" class="social-icon">TG CHANNEL</a></div></div>
             </div>
             <div class="card" style="margin: 20px;"><h3>Трофеи команды</h3><div id="team-ach"></div></div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Состав команды</h3>
@@ -376,7 +378,8 @@
         document.getElementById('team-profile-content').innerHTML = `
             <div class="profile-header">
                 <img src="gen.jpg" class="profile-img" alt="Generation" onerror="this.src='https://via.placeholder.com/180?text=No+Logo'">
-                <div class="profile-main-info"><h1>Generation academy</h1><p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p></div>
+                <div class="profile-main-info"><h1>Generation academy</h1><p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p>
+                <div class="social-links"><a href="https://t.me/GAteamcs" target="_blank" class="social-icon">TG CHANNEL</a></div></div>
             </div>
             <div class="card" style="margin: 20px;"><h3>Трофеи команды</h3><div id="gen-ach"></div></div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Состав команды</h3>
