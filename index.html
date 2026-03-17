@@ -107,7 +107,6 @@
         .achievement-item { display: flex; justify-content: space-between; padding: 10px 15px; background: rgba(30, 30, 30, 0.7); margin-bottom: 6px; border-radius: 3px; font-size: 14px; border: 1px solid rgba(51, 51, 51, 0.3); }
         .place-1 { color: var(--gold); font-weight: bold; }
         .place-2 { color: var(--silver); font-weight: bold; }
-        /* Добавил цвет для 3 места */
         .place-3 { color: #cd7f32; font-weight: bold; }
 
         .back-btn { background: #282828; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 15px; font-size: 12px; border-radius: 2px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
@@ -148,7 +147,7 @@
                         <span class="stat-label">Игроков в базе</span>
                     </div>
                     <div class="stat-item clickable" onclick="showSection('teams')">
-                        <span class="stat-value">1</span>
+                        <span class="stat-value">2</span>
                         <span class="stat-label">Команд</span>
                     </div>
                 </div>
@@ -200,7 +199,7 @@
                                 </td>
                                 <td style="color: #4caf50; font-weight: bold;">969</td>
                                 <td style="color: var(--gold); font-weight: bold;">-</td>
-                                <td>-</td>
+                                <td><span class="clickable team-link" onclick="showGenerationProfile()">Generation</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -209,8 +208,7 @@
             
             <div id="player-profile-view" class="profile-view">
                 <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К СПИСКУ</button>
-                <div id="profile-content-placeholder">
-                    </div>
+                <div id="profile-content-placeholder"></div>
             </div>
         </div>
 
@@ -230,39 +228,17 @@
                                 <td class="clickable" onclick="showTeamProfile()">Echofall</td>
                                 <td style="color: var(--accent); font-weight: bold;">600</td>
                             </tr>
+                            <tr>
+                                <td class="clickable" onclick="showGenerationProfile()">Generation academy</td>
+                                <td style="color: var(--accent); font-weight: bold;">70</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div id="team-profile-view" class="profile-view">
                 <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К РЕЙТИНГУ</button>
-                <div class="profile-header">
-                    <img src="logo.jpg" class="profile-img" alt="Echofall" onerror="this.src='https://via.placeholder.com/180?text=No+Logo'">
-                    <div class="profile-main-info">
-                        <h1>Echofall</h1>
-                        <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p>
-                        <div class="social-links">
-                            <a href="https://t.me/echofallcs" target="_blank" class="social-icon">TG CHANNEL</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card" style="margin: 20px;">
-                    <h3>Трофеи команды</h3>
-                    <div id="team-achievements-content"></div>
-                </div>
-                <div class="card" style="margin: 0 20px 20px 20px;">
-                    <h3>Состав команды</h3>
-                    <table>
-                        <thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
-                                <td style="color: var(--elo-red); font-weight: bold;">2100</td>
-                                <td><span class="role-badge">IGL</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div id="team-profile-content"></div>
             </div>
         </div>
 
@@ -274,11 +250,9 @@
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let lines = [];
-
     function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-
     class Line {
         constructor() {
             this.x = Math.random() * canvas.width;
@@ -291,7 +265,6 @@
         update() {
             this.x += Math.cos(this.angle) * this.speed;
             this.y += Math.sin(this.angle) * this.speed;
-            this.angle += Math.random() * 0.1 - 0.05;
             if (this.x < 0) this.x = canvas.width;
             if (this.x > canvas.width) this.x = 0;
             if (this.y < 0) this.y = canvas.height;
@@ -306,22 +279,12 @@
             ctx.stroke();
         }
     }
-
-    function init() {
-        lines = [];
-        const numberOfLines = Math.floor(canvas.width / 15);
-        for (let i = 0; i < numberOfLines; i++) { lines.push(new Line()); }
-    }
+    function init() { lines = []; for (let i = 0; i < Math.floor(canvas.width / 15); i++) lines.push(new Line()); }
     init();
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let line of lines) { line.update(); line.draw(); }
-        requestAnimationFrame(animate);
-    }
+    function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let line of lines) { line.update(); line.draw(); } requestAnimationFrame(animate); }
     animate();
-    window.addEventListener('resize', init);
 
+    // ДАННЫЕ
     const achievementsSpoky = [
         { name: "B7 Tournament", place: 1 }, { name: "Aquex cup", place: 2 },
         { name: "Blasty Open Winter", place: 1 }, { name: "IPE Major", place: 2 },
@@ -334,7 +297,7 @@
         { name: "LTL liga cup", place: 3 }
     ];
 
-    function renderAchievements(data, targetId) {
+    function renderAchievs(data, targetId) {
         const container = document.getElementById(targetId);
         container.innerHTML = '<ul class="achievements-list">' + 
             data.map(a => `
@@ -349,7 +312,6 @@
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         hideAllProfiles();
-        window.scrollTo(0, 0); 
     }
 
     function showPlayerProfile() {
@@ -359,12 +321,7 @@
         document.getElementById('profile-content-placeholder').innerHTML = `
             <div class="profile-header">
                 <img src="player.jpg" class="profile-img" alt="spokyso" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
-                <div class="profile-main-info">
-                    <h1>spokyso</h1>
-                    <div class="player-sub-header">
-                        <span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Юра</span>
-                    </div>
-                </div>
+                <div class="profile-main-info"><h1>spokyso</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Юра</span></div></div>
             </div>
             <div class="profile-grid">
                 <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value elo-red-value">2100</span></div>
@@ -372,11 +329,8 @@
                 <div class="info-box"><span class="info-label">Age</span><span class="info-value">18 years old</span></div>
                 <div class="info-box"><span class="info-label">Role</span><span class="info-value">Rifler / IGL</span></div>
             </div>
-            <div class="card" style="margin: 0 20px 20px 20px;">
-                <h3>Achievements</h3>
-                <div id="achievements-content"></div>
-            </div>`;
-        renderAchievements(achievementsSpoky, 'achievements-content');
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-list"></div></div>`;
+        renderAchievs(achievementsSpoky, 'ach-list');
     }
 
     function showFrostProfile() {
@@ -386,12 +340,7 @@
         document.getElementById('profile-content-placeholder').innerHTML = `
             <div class="profile-header">
                 <img src="frost.jpg" class="profile-img" alt="fR0-ST" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
-                <div class="profile-main-info">
-                    <h1>fR0-ST</h1>
-                    <div class="player-sub-header">
-                        <span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Player</span>
-                    </div>
-                </div>
+                <div class="profile-main-info"><h1>fR0-ST</h1><div class="player-sub-header"><span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Player</span></div></div>
             </div>
             <div class="profile-grid">
                 <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value" style="color:#4caf50; font-size:20px;">969</span></div>
@@ -399,18 +348,42 @@
                 <div class="info-box"><span class="info-label">Age</span><span class="info-value">14 years old</span></div>
                 <div class="info-box"><span class="info-label">Role</span><span class="info-value">IGL</span></div>
             </div>
-            <div class="card" style="margin: 0 20px 20px 20px;">
-                <h3>Achievements</h3>
-                <div id="achievements-frost-content"></div>
-            </div>`;
-        renderAchievements(achievementsFrost, 'achievements-frost-content');
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-frost"></div></div>`;
+        renderAchievs(achievementsFrost, 'ach-frost');
     }
 
     function showTeamProfile() {
         hideAllViews();
         document.getElementById('teams').classList.add('active');
         document.getElementById('team-profile-view').style.display = 'block';
-        renderAchievements(achievementsSpoky, 'team-achievements-content');
+        document.getElementById('team-profile-content').innerHTML = `
+            <div class="profile-header">
+                <img src="logo.jpg" class="profile-img" alt="Echofall" onerror="this.src='https://via.placeholder.com/180?text=No+Logo'">
+                <div class="profile-main-info"><h1>Echofall</h1><p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p></div>
+            </div>
+            <div class="card" style="margin: 20px;"><h3>Трофеи команды</h3><div id="team-ach"></div></div>
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Состав команды</h3>
+                <table><thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
+                <tbody><tr><td class="clickable" onclick="showPlayerProfile()">spokyso</td><td style="color: var(--elo-red); font-weight: bold;">2100</td><td><span class="role-badge">IGL</span></td></tr></tbody></table>
+            </div>`;
+        renderAchievs(achievementsSpoky, 'team-ach');
+    }
+
+    function showGenerationProfile() {
+        hideAllViews();
+        document.getElementById('teams').classList.add('active');
+        document.getElementById('team-profile-view').style.display = 'block';
+        document.getElementById('team-profile-content').innerHTML = `
+            <div class="profile-header">
+                <img src="gen.jpg" class="profile-img" alt="Generation" onerror="this.src='https://via.placeholder.com/180?text=No+Logo'">
+                <div class="profile-main-info"><h1>Generation academy</h1><p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p></div>
+            </div>
+            <div class="card" style="margin: 20px;"><h3>Трофеи команды</h3><div id="gen-ach"></div></div>
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Состав команды</h3>
+                <table><thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
+                <tbody><tr><td class="clickable" onclick="showFrostProfile()">fR0-ST</td><td style="color: #4caf50; font-weight: bold;">969</td><td><span class="role-badge">IGL</span></td></tr></tbody></table>
+            </div>`;
+        renderAchievs(achievementsFrost, 'gen-ach');
     }
 
     function hideAllViews() {
