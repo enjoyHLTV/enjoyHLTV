@@ -147,7 +147,7 @@
                         <span class="stat-label">Игроков в базе</span>
                     </div>
                     <div class="stat-item clickable" onclick="showSection('teams')">
-                        <span class="stat-value">2</span>
+                        <span class="stat-value">3</span>
                         <span class="stat-label">Команд</span>
                     </div>
                 </div>
@@ -208,7 +208,7 @@
                                 </td>
                                 <td style="color: #4caf50; font-weight: bold;">1300</td>
                                 <td style="color: var(--gold); font-weight: bold;">-</td>
-                                <td>-</td>
+                                <td><span class="clickable team-link" onclick="showNeopredatesProfile()">Neopredates</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -240,6 +240,10 @@
                             <tr>
                                 <td class="clickable" onclick="showGenerationProfile()">Generation academy</td>
                                 <td style="color: var(--accent); font-weight: bold;">70</td>
+                            </tr>
+                            <tr>
+                                <td class="clickable" onclick="showNeopredatesProfile()">Neopredates</td>
+                                <td style="color: var(--accent); font-weight: bold;">-</td>
                             </tr>
                         </tbody>
                     </table>
@@ -420,6 +424,24 @@
                 <tbody><tr><td class="clickable" onclick="showFrostProfile()">fR0-ST</td><td style="color: #4caf50; font-weight: bold;">969</td><td><span class="role-badge">IGL</span></td></tr></tbody></table>
             </div>`;
         renderAchievs(achievementsFrost, 'gen-ach');
+    }
+
+    function showNeopredatesProfile() {
+        hideAllViews();
+        document.getElementById('teams').classList.add('active');
+        document.getElementById('team-profile-view').style.display = 'block';
+        document.getElementById('team-profile-content').innerHTML = `
+            <div class="profile-header">
+                <img src="neo.jpg" class="profile-img" alt="Neopredates" onerror="this.src='https://via.placeholder.com/180?text=No+Logo'">
+                <div class="profile-main-info"><h1>Neopredates</h1><p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p>
+                <div class="social-links"><a href="https://t.me/teamneopredates" target="_blank" class="social-icon">TG CHANNEL</a></div></div>
+            </div>
+            <div class="card" style="margin: 20px;"><h3>Трофеи команды</h3><div id="neo-ach"></div></div>
+            <div class="card" style="margin: 0 20px 20px 20px;"><h3>Состав команды</h3>
+                <table><thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
+                <tbody><tr><td class="clickable" onclick="showGer1dinProfile()">ger1din</td><td style="color: #4caf50; font-weight: bold;">1300</td><td><span class="role-badge">Support</span></td></tr></tbody></table>
+            </div>`;
+        renderAchievs([], 'neo-ach');
     }
 
     function hideAllViews() {
