@@ -13,9 +13,7 @@
             --border: #333;
             --gold: #ffd700;
             --silver: #c0c0c0;
-            --bronze: #cd7f32; /* Цвет для 3 места */
             --elo-red: #ff3e3e;
-            --elo-green: #4caf50; /* Зеленый для ELO */
         }
 
         body { 
@@ -103,14 +101,14 @@
         .info-label { display: block; color: #888; font-size: 11px; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
         .info-value { font-weight: bold; font-size: 16px; color: #fff; }
         .elo-red-value { color: var(--elo-red); font-size: 20px; }
-        .elo-green-value { color: var(--elo-green); font-size: 20px; }
         .rating-value { color: var(--gold); font-size: 20px; }
 
         .achievements-list { list-style: none; padding: 0; margin: 0; }
         .achievement-item { display: flex; justify-content: space-between; padding: 10px 15px; background: rgba(30, 30, 30, 0.7); margin-bottom: 6px; border-radius: 3px; font-size: 14px; border: 1px solid rgba(51, 51, 51, 0.3); }
         .place-1 { color: var(--gold); font-weight: bold; }
         .place-2 { color: var(--silver); font-weight: bold; }
-        .place-3 { color: var(--bronze); font-weight: bold; }
+        /* Добавил цвет для 3 места */
+        .place-3 { color: #cd7f32; font-weight: bold; }
 
         .back-btn { background: #282828; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 15px; font-size: 12px; border-radius: 2px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
         .back-btn:hover { background: #383838; }
@@ -146,7 +144,8 @@
                 <p>Твой Tier-6 хаб статистики и достижений</p>
                 <div class="stats-grid">
                     <div class="stat-item clickable" onclick="showSection('players')">
-                        <span class="stat-value">2</span> <span class="stat-label">Игроков в базе</span>
+                        <span class="stat-value">2</span>
+                        <span class="stat-label">Игроков в базе</span>
                     </div>
                     <div class="stat-item clickable" onclick="showSection('teams')">
                         <span class="stat-value">1</span>
@@ -187,7 +186,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <span class="clickable" onclick="showPlayerProfile('spokyso')">spokyso</span>
+                                    <span class="clickable" onclick="showPlayerProfile()">spokyso</span>
                                     <span class="role-badge">IGL</span>
                                 </td>
                                 <td style="color: var(--elo-red); font-weight: bold;">2100</td>
@@ -196,10 +195,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <span class="clickable" onclick="showPlayerProfile('frost')">fR0-ST</span>
+                                    <span class="clickable" onclick="showFrostProfile()">fR0-ST</span>
                                     <span class="role-badge">IGL</span>
                                 </td>
-                                <td style="color: var(--elo-green); font-weight: bold;">969</td>
+                                <td style="color: #4caf50; font-weight: bold;">969</td>
                                 <td style="color: var(--gold); font-weight: bold;">-</td>
                                 <td>-</td>
                             </tr>
@@ -210,12 +209,8 @@
             
             <div id="player-profile-view" class="profile-view">
                 <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К СПИСКУ</button>
-                <div id="dynamic-profile-header"></div>
-                <div id="dynamic-profile-grid"></div>
-                <div class="card" style="margin: 0 20px 20px 20px;">
-                    <h3>Achievements</h3>
-                    <div id="achievements-content"></div>
-                </div>
+                <div id="profile-content-placeholder">
+                    </div>
             </div>
         </div>
 
@@ -239,20 +234,51 @@
                     </table>
                 </div>
             </div>
+            <div id="team-profile-view" class="profile-view">
+                <button class="back-btn" onclick="hideAllProfiles()">← НАЗАД К РЕЙТИНГУ</button>
+                <div class="profile-header">
+                    <img src="logo.jpg" class="profile-img" alt="Echofall" onerror="this.src='https://via.placeholder.com/180?text=No+Logo'">
+                    <div class="profile-main-info">
+                        <h1>Echofall</h1>
+                        <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Tier-6 Team</p>
+                        <div class="social-links">
+                            <a href="https://t.me/echofallcs" target="_blank" class="social-icon">TG CHANNEL</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin: 20px;">
+                    <h3>Трофеи команды</h3>
+                    <div id="team-achievements-content"></div>
+                </div>
+                <div class="card" style="margin: 0 20px 20px 20px;">
+                    <h3>Состав команды</h3>
+                    <table>
+                        <thead><tr><th>Игрок</th><th>ELO</th><th>Роль</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="clickable" onclick="showPlayerProfile()">spokyso</td>
+                                <td style="color: var(--elo-red); font-weight: bold;">2100</td>
+                                <td><span class="role-badge">IGL</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
 
     </div>
     <div class="sidebar card"><h3>Матчи LIVE</h3><p style="font-size: 12px; color: #666; margin: 0;">Событий нет</p></div>
 </div>
 
 <script>
-    // Скрипт фона остается без изменений...
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let lines = [];
+
     function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+
     class Line {
         constructor() {
             this.x = Math.random() * canvas.width;
@@ -265,8 +291,11 @@
         update() {
             this.x += Math.cos(this.angle) * this.speed;
             this.y += Math.sin(this.angle) * this.speed;
-            if (this.x < 0 || this.x > canvas.width) this.angle = Math.PI - this.angle;
-            if (this.y < 0 || this.y > canvas.height) this.angle = -this.angle;
+            this.angle += Math.random() * 0.1 - 0.05;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
         }
         draw() {
             ctx.strokeStyle = this.color;
@@ -277,82 +306,38 @@
             ctx.stroke();
         }
     }
+
     function init() {
         lines = [];
-        for (let i = 0; i < Math.floor(canvas.width / 15); i++) lines.push(new Line());
+        const numberOfLines = Math.floor(canvas.width / 15);
+        for (let i = 0; i < numberOfLines; i++) { lines.push(new Line()); }
     }
     init();
-    function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let line of lines) { line.update(); line.draw(); } requestAnimationFrame(animate); }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let line of lines) { line.update(); line.draw(); }
+        requestAnimationFrame(animate);
+    }
     animate();
+    window.addEventListener('resize', init);
 
-    // БАЗА ДАННЫХ ИГРОКОВ
-    const playersData = {
-        'spokyso': {
-            nick: 'spokyso',
-            name: 'Юра',
-            flag: 'ua',
-            elo: '2100',
-            eloClass: 'elo-red-value',
-            rating: '600',
-            age: '18 years old',
-            role: 'Rifler / IGL',
-            achievements: [
-                { name: "B7 Tournament", place: 1 },
-                { name: "Aquex cup", place: 2 },
-                { name: "Blasty Open Winter", place: 1 },
-                { name: "IPE Major", place: 2 },
-                { name: "AVENTUS Cup", place: 1 },
-                { name: "Cupix Open March", place: 1 },
-                { name: "LTL Liga Cup", place: 1 }
-            ]
-        },
-        'frost': {
-            nick: 'fR0-ST',
-            name: 'Player',
-            flag: 'ua',
-            elo: '969',
-            eloClass: 'elo-green-value', // ЗЕЛЕНЫЙ ЦВЕТ
-            rating: '-',
-            age: '14 years old',
-            role: 'IGL',
-            achievements: [
-                { name: "nxt academi cup", place: 2 },
-                { name: "LTL liga cup", place: 3 }
-            ]
-        }
-    };
+    const achievementsSpoky = [
+        { name: "B7 Tournament", place: 1 }, { name: "Aquex cup", place: 2 },
+        { name: "Blasty Open Winter", place: 1 }, { name: "IPE Major", place: 2 },
+        { name: "AVENTUS Cup", place: 1 }, { name: "Cupix Open March", place: 1 },
+        { name: "LTL Liga Cup", place: 1 }
+    ];
 
-    function showPlayerProfile(id) {
-        const p = playersData[id];
-        hideAllViews();
-        document.getElementById('players').classList.add('active');
-        document.getElementById('player-profile-view').style.display = 'block';
+    const achievementsFrost = [
+        { name: "nxt academi cup", place: 2 },
+        { name: "LTL liga cup", place: 3 }
+    ];
 
-        // Рендерим шапку
-        document.getElementById('dynamic-profile-header').innerHTML = `
-            <div class="profile-header">
-                <img src="${id}.jpg" class="profile-img" alt="${p.nick}" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
-                <div class="profile-main-info">
-                    <h1>${p.nick}</h1>
-                    <div class="player-sub-header">
-                        <span><img src="https://flagcdn.com/w40/${p.flag}.png" style="width:18px; vertical-align:middle;"> ${p.name}</span>
-                    </div>
-                </div>
-            </div>`;
-
-        // Рендерим статы
-        document.getElementById('dynamic-profile-grid').innerHTML = `
-            <div class="profile-grid">
-                <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value ${p.eloClass}">${p.elo}</span></div>
-                <div class="info-box"><span class="info-label">Rating</span><span class="info-value rating-value">${p.rating}</span></div>
-                <div class="info-box"><span class="info-label">Age</span><span class="info-value">${p.age}</span></div>
-                <div class="info-box"><span class="info-label">Role</span><span class="info-value">${p.role}</span></div>
-            </div>`;
-
-        // Рендерим достижения
-        const container = document.getElementById('achievements-content');
+    function renderAchievements(data, targetId) {
+        const container = document.getElementById(targetId);
         container.innerHTML = '<ul class="achievements-list">' + 
-            p.achievements.map(a => `
+            data.map(a => `
                 <li class="achievement-item">
                     <span>${a.name}</span>
                     <span class="place-${a.place}">${a.place === 1 ? '🥇 1st' : a.place === 2 ? '🥈 2nd' : '🥉 3rd'}</span>
@@ -360,7 +345,6 @@
             `).join('') + '</ul>';
     }
 
-    // Вспомогательные функции
     function showSection(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -368,29 +352,79 @@
         window.scrollTo(0, 0); 
     }
 
-    function hideAllViews() {
-        document.querySelectorAll('.section > div').forEach(div => div.style.display = 'none');
+    function showPlayerProfile() {
+        hideAllViews();
+        document.getElementById('players').classList.add('active');
+        document.getElementById('player-profile-view').style.display = 'block';
+        document.getElementById('profile-content-placeholder').innerHTML = `
+            <div class="profile-header">
+                <img src="player.jpg" class="profile-img" alt="spokyso" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
+                <div class="profile-main-info">
+                    <h1>spokyso</h1>
+                    <div class="player-sub-header">
+                        <span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Юра</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-grid">
+                <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value elo-red-value">2100</span></div>
+                <div class="info-box"><span class="info-label">Rating</span><span class="info-value rating-value">600</span></div>
+                <div class="info-box"><span class="info-label">Age</span><span class="info-value">18 years old</span></div>
+                <div class="info-box"><span class="info-label">Role</span><span class="info-value">Rifler / IGL</span></div>
+            </div>
+            <div class="card" style="margin: 0 20px 20px 20px;">
+                <h3>Achievements</h3>
+                <div id="achievements-content"></div>
+            </div>`;
+        renderAchievements(achievementsSpoky, 'achievements-content');
     }
 
-    function hideAllProfiles() {
-        document.getElementById('players-list-view').style.display = 'block';
-        document.getElementById('player-profile-view').style.display = 'none';
-        document.getElementById('teams-list-view').style.display = 'block';
+    function showFrostProfile() {
+        hideAllViews();
+        document.getElementById('players').classList.add('active');
+        document.getElementById('player-profile-view').style.display = 'block';
+        document.getElementById('profile-content-placeholder').innerHTML = `
+            <div class="profile-header">
+                <img src="frost.jpg" class="profile-img" alt="fR0-ST" onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
+                <div class="profile-main-info">
+                    <h1>fR0-ST</h1>
+                    <div class="player-sub-header">
+                        <span><img src="https://flagcdn.com/w40/ua.png" style="width:18px; vertical-align:middle;"> Player</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-grid">
+                <div class="info-box"><span class="info-label">Current ELO</span><span class="info-value" style="color:#4caf50; font-size:20px;">969</span></div>
+                <div class="info-box"><span class="info-label">Rating</span><span class="info-value rating-value">-</span></div>
+                <div class="info-box"><span class="info-label">Age</span><span class="info-value">14 years old</span></div>
+                <div class="info-box"><span class="info-label">Role</span><span class="info-value">IGL</span></div>
+            </div>
+            <div class="card" style="margin: 0 20px 20px 20px;">
+                <h3>Achievements</h3>
+                <div id="achievements-frost-content"></div>
+            </div>`;
+        renderAchievements(achievementsFrost, 'achievements-frost-content');
     }
 
     function showTeamProfile() {
         hideAllViews();
         document.getElementById('teams').classList.add('active');
         document.getElementById('team-profile-view').style.display = 'block';
-        // Для примера рендерим достижения spokyso в трофеи команды
-        const container = document.getElementById('team-achievements-content');
-        container.innerHTML = '<ul class="achievements-list">' + 
-            playersData['spokyso'].achievements.map(a => `
-                <li class="achievement-item">
-                    <span>${a.name}</span>
-                    <span class="place-${a.place}">${a.place === 1 ? '🥇 1st' : '🥈 2nd'}</span>
-                </li>
-            `).join('') + '</ul>';
+        renderAchievements(achievementsSpoky, 'team-achievements-content');
+    }
+
+    function hideAllViews() {
+        document.getElementById('players-list-view').style.display = 'none';
+        document.getElementById('player-profile-view').style.display = 'none';
+        document.getElementById('teams-list-view').style.display = 'none';
+        document.getElementById('team-profile-view').style.display = 'none';
+    }
+
+    function hideAllProfiles() {
+        document.getElementById('players-list-view').style.display = 'block';
+        document.getElementById('player-profile-view').style.display = 'none';
+        document.getElementById('teams-list-view').style.display = 'block';
+        document.getElementById('team-profile-view').style.display = 'none';
     }
 </script>
 </body>
