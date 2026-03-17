@@ -332,6 +332,11 @@
         { name: "LTL liga cup", place: 3 }
     ];
 
+    // ДОБАВЛЕНЫ ДОСТИЖЕНИЯ ДЛЯ iL1k
+    const achievementsIL1k = [
+        { name: "LTL Liga Cup", place: 1 }
+    ];
+
     function renderAchievs(data, targetId) {
         const container = document.getElementById(targetId);
         if(!data || data.length === 0) {
@@ -390,7 +395,7 @@
                 <div class="info-box"><span class="info-label">Role</span><span class="info-value">IGL/Support</span></div>
             </div>
             <div class="card" style="margin: 0 20px 20px 20px;"><h3>Achievements</h3><div id="ach-il1k"></div></div>`;
-        renderAchievs([], 'ach-il1k');
+        renderAchievs(achievementsIL1k, 'ach-il1k'); // ТЕПЕРЬ ОТОБРАЖАЕТСЯ 1 МЕСТО
     }
 
     function showFrostProfile() {
